@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCL 昔涟版 · V1.14.0</title>
+<style>
+  :root{
+    --pink:#b44682; --pink-soft:#e9b7d2; --bg:#fff7fb; --bg2:#fdecf4;
+    --ink:#3f2733; --muted:#8a6b7c; --card:#ffffffcc; --line:#f0d6e4;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:"Microsoft YaHei UI","PingFang SC",system-ui,sans-serif;
+    color:var(--ink);
+    background:#fdf3f9;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #ffe3f1 0%, transparent 60%),
+      radial-gradient(900px 500px at 10% 0%, #f2e6ff 0%, transparent 55%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    min-height:100vh;
+  }
+  a{color:var(--pink);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 0;
+  }
+  .brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:700;letter-spacing:1px}
+  .badge{
+    font-size:12px;font-weight:600;color:#fff;background:var(--pink);
+    padding:2px 8px;border-radius:999px;
+  }
+  nav a{margin-left:22px;color:var(--muted);font-size:14px}
+  nav a:hover{color:var(--pink)}
+
+  .hero{padding:64px 0 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  .hero h1{font-size:44px;line-height:1.25;margin:0 0 16px}
+  .hero h1 span{color:var(--pink)}
+  .hero p{color:var(--muted);font-size:16px;line-height:1.9;margin:0 0 28px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 26px;border-radius:999px;font-weight:600;font-size:15px;
+    border:1px solid transparent;cursor:pointer;transition:.2s;
+  }
+  .btn-main{background:var(--pink);color:#fff;box-shadow:0 10px 24px #b4468233}
+  .btn-main:hover{transform:translateY(-2px);box-shadow:0 14px 30px #b4468244}
+  .btn-ghost{background:#fff;border-color:var(--line);color:var(--pink)}
+  .btn-ghost:hover{border-color:var(--pink-soft)}
+
+  .card-visual{
+    aspect-ratio:4/3;border-radius:26px;border:1px solid var(--line);
+    background:linear-gradient(160deg,#fff,#fbe7f2);
+    box-shadow:0 24px 60px #b446821f;
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  }
+  .card-visual::after{
+    content:"昔涟";position:absolute;font-size:120px;font-weight:800;
+    color:#b4468212;letter-spacing:8px;transform:rotate(-8deg);
+  }
+  .card-visual small{position:relative;color:var(--muted)}
+
+  section{padding:56px 0}
+  h2{font-size:26px;margin:0 0 8px}
+  .sub{color:var(--muted);margin:0 0 28px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .item{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;
+    backdrop-filter:blur(6px);
+  }
+  .item h3{margin:0 0 8px;font-size:16px}
+  .item p{margin:0;color:var(--muted);font-size:14px;line-height:1.8}
+
+  .dl{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:24px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;
+    backdrop-filter:blur(6px);
+  }
+  .dl .meta{font-size:13px;color:var(--muted);margin-top:6px}
+  .dl h3{margin:0;font-size:18px}
+  .ver{font-family:Consolas,monospace;font-size:13px;color:var(--pink)}
+
+  .timeline{border-left:2px solid var(--line);margin-left:8px;padding-left:20px}
+  .ev{margin-bottom:18px;position:relative}
+  .ev::before{content:"";position:absolute;left:-27px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--pink-soft)}
+  .ev b{font-family:Consolas,monospace;color:var(--pink);font-size:13px}
+  .ev p{margin:4px 0 0;color:var(--muted);font-size:14px;line-height:1.8}
+
+  footer{border-top:1px solid var(--line);margin-top:32px;padding:26px 0;color:var(--muted);font-size:13px;text-align:center}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;padding-top:36px}.hero h1{font-size:32px}nav{display:none}}
+</style>
+  <link rel="preload" as="image" href="shots/01-main-f.jpg">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">PCL 昔涟版 <span class="badge">V1.14.0</span></div>
+    <nav>
+      <a href="#features">功能</a>
+      <a href="#download">下载</a>
+      <a href="#changelog">更新</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>一个只属于<br><span>你和她</span>的启动器</h1>
+      <p>
+        基于 PCL-CE 重写的 Minecraft 启动器。粉色主题、昔涟图标、开机问候，
+        还有联机穿透、整合包直装、存档备份、崩溃诊断等一整套工具。
+        <br>仅供个人使用，不对外分发。
+      </p>
+      <div class="cta">
+        <a class="btn btn-main" href="#download">↓ 立即下载</a>
+        <a class="btn btn-ghost" href="#changelog">看看更新了什么</a>
+      </div>
+    </div>
+    <div class="shotbox">
+      <div class="shotframe">
+        <img id="shotMain" src="shots/01-main-f.jpg" width="1102" height="662" alt="启动器截图" onclick="openLightbox()">
+      </div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+  </div>
+
+  <section id="features">
+    <h2>它有什么</h2>
+    <p class="sub">都是实际会用上的东西，没有凑数的按钮。</p>
+    <div class="grid">
+      <div class="item"><h3>樱花穿透</h3><p>内置 frpc，填密钥和隧道 ID 就能把房间开到公网。记住凭证、检查本地端口。</p></div>
+      <div class="item"><h3>整合包直装</h3><p>把 .mrpack 里要联网下载的文件提前下好、校验 SHA1，产出一个完全离线的包。</p></div>
+      <div class="item"><h3>导出实例</h3><p>把装好的实例连同 mods、config 打成 .mrpack，发给朋友直接导入。</p></div>
+      <div class="item"><h3>存档备份</h3><p>一键备份到 saves-backup，只保留最近 5 份，随时可以回到三天前。</p></div>
+      <div class="item"><h3>崩溃诊断</h3><p>把 crash-report 翻成人话：Java 版本、内存、Mixin 冲突，逐条给出建议。</p></div>
+      <div class="item"><h3>简单开服</h3><p>下载官方服务端、自动写 eula、后台运行并显示控制台输出。</p></div>
+      <div class="item"><h3>启动前自检</h3><p>路径、Java、同 id 多版本模组、备份情况，启动前一次查完。</p></div>
+      <div class="item"><h3>资源库</h3><p>光影与资源包放进目录就能一键部署到任意实例。</p></div>
+    </div>
+  </section>
+
+  <section id="download">
+    <h2>下载</h2>
+    <p class="sub">下载会跳到 GitHub Releases（站点不存大文件）。安装包会建快捷方式，更新包装好后在启动器里选。</p>
+
+    <div class="dl" style="margin-bottom:16px">
+      <div>
+        <h3>正式版安装包 <span class="ver">V1.14.0</span></h3>
+        <div class="meta">PCLCyrene-Setup.exe · 约 62 MB · 会创建快捷方式</div>
+      </div>
+      <a class="btn btn-main" href="https://github.com/Sandorce/PCLCyrene/releases/latest">下载安装包</a>
+    </div>
+
+    <div class="dl">
+      <div>
+        <h3>正式版更新包 <span class="ver">V1.14.0</span></h3>
+        <div class="meta">PCLCyrene-Update.zip · 约 79 MB · 设置 → 软件更新 → 选择更新包</div>
+      </div>
+      <a class="btn btn-ghost" href="https://github.com/Sandorce/PCLCyrene/releases/latest">下载更新包</a>
+    </div>
+
+    <p class="sub" style="margin-top:18px">
+      校验：下载后可用启动器「更新包校验」检查完整性与 SHA256。
+    </p>
+  </section>
+
+  <section id="changelog">
+    <h2>更新记录</h2>
+    <p class="sub">从粉色主题到模块化，一共走了这么多步。</p>
+    <div class="timeline">
+      <div class="ev"><b>1.11.0</b><p>正式版：合入全部 beta 改动，12 个工具齐备。</p></div>
+      <div class="ev"><b>1.11.0-beta.11</b><p>移除「整合包市场」。</p></div>
+      <div class="ev"><b>1.11.0-beta.9</b><p>简单开服支持下载官方服务端；标题栏新增「服务器」图标。</p></div>
+      <div class="ev"><b>1.11.0-beta.6</b><p>换掉最后一张 PCL 图标，界面再无 PCL 素材。</p></div>
+      <div class="ev"><b>1.11.0-beta.5</b><p>清理界面里残留的 PCL CE / Plain Craft Launcher 字样。</p></div>
+      <div class="ev"><b>1.11.0-beta.4</b><p>新增「更新包校验」与「截图归档」。</p></div>
+      <div class="ev"><b>1.11.0-beta.3</b><p>新增「日志翻译」：常见报错转中文 + 建议。</p></div>
+      <div class="ev"><b>1.11.0-beta.2</b><p>新增「启动前自检」。</p></div>
+      <div class="ev"><b>1.11.0-beta.1</b><p>新增「存档备份」。</p></div>
+      <div class="ev"><b>1.8.0</b><p>正式版：合入模块化（PCL.Cyrene）与资源库。</p></div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>常见问题</h2>
+    <div class="grid">
+      <div class="item"><h3>正版登录需要什么？</h3><p>需要微软账号。启动器已内置客户端 ID，点「正版登录」按提示输入设备码即可。</p></div>
+      <div class="item"><h3>联机怎么用？</h3><p>主机开房间（或开服），点标题栏「节点」图标填樱花密钥与隧道 ID；朋友拿到地址后添加服务器。</p></div>
+      <div class="item"><h3>下载很慢？</h3><p>设置 → 下载 → 下载源改成镜像（BMCLAPI）。官方源对单连接限速约 0.5 MB/s。</p></div>
+      <div class="item"><h3>游戏崩溃了？</h3><p>先看「崩溃诊断」，再看「日志翻译」。两个都找不到原因，把错误报告发给作者。</p></div>
+    </div>
+  </section>
+
+  <footer>
+    PCL 昔涟版 · 基于 PCL-CE 修改，遵循《PCL 分发有限许可》<br>上游作者：龙腾猫跃 ／ PCL 社区<br>
+    <span style="opacity:.7">「只有一个人需要开门，其他人都能进来。」</span>
+  </footer>
+</div>
+  <style id="shot-styles">
+  .shotbox{display:flex;flex-direction:column;gap:10px}
+  .shotframe{
+    border-radius:22px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:0 24px 60px #b446821f;background:#fff;cursor:zoom-in;position:relative;
+  }
+  .shotframe img{display:block;width:100%;height:auto;transition:transform .5s ease}
+  .shotframe:hover img{transform:scale(1.02)}
+  .thumbs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+  .thumbs img{
+    width:64px;height:40px;object-fit:cover;border-radius:8px;border:2px solid transparent;
+    cursor:pointer;opacity:.6;transition:.2s;
+  }
+  .thumbs img:hover{opacity:1}
+  .thumbs img.active{border-color:var(--pink);opacity:1}
+  .lightbox{
+    position:fixed;inset:0;background:#3f2733cc;backdrop-filter:blur(4px);
+    display:none;align-items:center;justify-content:center;z-index:99;padding:30px;
+  }
+  .lightbox.on{display:flex}
+  .lightbox img{max-width:96vw;max-height:88vh;border-radius:14px;box-shadow:0 30px 80px #0008}
+  .lightbox .close{
+    position:absolute;top:18px;right:24px;color:#fff;font-size:30px;cursor:pointer;
+    width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:#ffffff22;
+  }
+  </style>  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="close">×</div>
+    <img id="lightboxImg" src="" alt="放大查看">
+  </div>
+  <script>
+  const SHOTS = [
+    {t:"shots/01-main-t.jpg",     f:"shots/01-main-f.jpg",     name:"主界面"},
+    {t:"shots/02-update-t.jpg",   f:"shots/02-update-f.jpg",   name:"软件更新"},
+    {t:"shots/03-tools-t.jpg",    f:"shots/03-tools-f.jpg",    name:"小工具"},
+    {t:"shots/04-server-t.jpg",   f:"shots/04-server-f.jpg",   name:"简单开服"},
+    {t:"shots/05-packtool-t.jpg", f:"shots/05-packtool-f.jpg", name:"整合包直装"},
+    {t:"shots/06-frp-t.jpg",      f:"shots/06-frp-f.jpg",      name:"樱花穿透"}
+  ];
+  let cur = 0, timer = null;
+
+  function render(){
+    document.getElementById("shotMain").src = SHOTS[cur].f;
+    [...document.querySelectorAll("#thumbs img")].forEach((el,i)=>{
+      el.classList.toggle("active", i===cur);
+    });
+  }
+  function go(i){ cur = (i + SHOTS.length) % SHOTS.length; render(); restart(); }
+  function restart(){ clearInterval(timer); timer = setInterval(()=>go(cur+1), 5000); }
+
+  function openLightbox(){
+    document.getElementById("lightboxImg").src = SHOTS[cur].f;
+    document.getElementById("lightbox").classList.add("on");
+    clearInterval(timer);
+  }
+  function closeLightbox(e){
+    if (e && e.target && e.target.tagName === "IMG") return;
+    document.getElementById("lightbox").classList.remove("on");
+    restart();
+  }
+  document.addEventListener("keydown", e=>{
+    if (e.key === "Escape") closeLightbox();
+    if (document.getElementById("lightbox").classList.contains("on")) return;
+    if (e.key === "ArrowRight") go(cur+1);
+    if (e.key === "ArrowLeft")  go(cur-1);
+  });
+
+  const thumbs = document.getElementById("thumbs");
+  SHOTS.forEach((s,i)=>{
+    const img = document.createElement("img");
+    img.src = s.t; img.alt = s.name; img.title = s.name; img.loading = "lazy"; img.width = 64; img.height = 40;
+    img.onclick = ()=>go(i);
+    thumbs.appendChild(img);
+  });
+  render(); restart();
+  </script>
+  <style id="bg-anim">
+  /* 动态背景：底图缓慢放大 + 飘落花瓣，全部用 CSS，无外部依赖 */
+  .bg-layer{position:fixed;inset:0;z-index:-3;pointer-events:none;overflow:hidden}
+  .bg-img{
+    position:absolute;inset:-6%;
+    background:url("assets/cyrene-bg.jpg") center/cover no-repeat;
+    filter:saturate(1.05) brightness(1.04);
+    animation:kenburns 42s ease-in-out infinite alternate;
+    will-change:transform;
+  }
+  @keyframes kenburns{
+    0%{transform:scale(1) translate3d(0,0,0)}
+    100%{transform:scale(1.12) translate3d(-1.5%,-1%,0)}
+  }
+  .bg-veil{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,#fff8fcd9,#fdecf4e6 55%,#fff8fcf2);
+    backdrop-filter:saturate(.9);
+  }
+  .petals{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+  .petal{
+    position:absolute;top:-8vh;width:12px;height:12px;
+    background:radial-gradient(circle at 30% 30%, #ffd6ea, #ef9fc8);
+    border-radius:60% 40% 60% 40%/50% 60% 40% 50%;
+    opacity:.55;
+    animation:fall linear infinite;
+    will-change:transform;
+  }
+  @keyframes fall{
+    0%{transform:translate3d(0,-10vh,0) rotate(0deg)}
+    100%{transform:translate3d(6vw,110vh,0) rotate(420deg)}
+  }
+  @media (max-width:820px){
+    .petal:nth-child(n+13){display:none}
+    .bg-img{animation-duration:60s}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .bg-img{animation:none}
+    .petal{display:none}
+  }
+  </style>  <div class="bg-layer"><div class="bg-img"></div><div class="bg-veil"></div></div>
+  <div class="petals" id="petals"></div>
+  <script>
+  (function(){
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const box = document.getElementById("petals");
+    const n = window.innerWidth < 820 ? 10 : 20;
+    for (let i=0;i<n;i++){
+      const p = document.createElement("i");
+      p.className = "petal";
+      p.style.left = (Math.random()*100).toFixed(1) + "vw";
+      p.style.animationDuration = (9 + Math.random()*10).toFixed(1) + "s";
+      p.style.animationDelay = (-Math.random()*14).toFixed(1) + "s";
+      p.style.transform = "scale(" + (0.5 + Math.random()*0.8).toFixed(2) + ")";
+      p.style.opacity = (0.25 + Math.random()*0.45).toFixed(2);
+      box.appendChild(p);
+    }
+  })();
+  </script>
+</body>
+</html>
