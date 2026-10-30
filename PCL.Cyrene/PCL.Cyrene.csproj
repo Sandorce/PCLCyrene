@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>14</LangVersion>
+        <RootNamespace>PCL.Cyrene</RootNamespace>
+        <AssemblyName>PCL.Cyrene</AssemblyName>
+        <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\PCL.Core\PCL.Core.csproj" />
+    </ItemGroup>
+</Project>
